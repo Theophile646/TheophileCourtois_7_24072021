@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const helmet = require("helmet");
-//const cookieSession = require('cookie-session');
+const helmet = require("helmet");
+const cookieSession = require('cookie-session');
 
 
 
@@ -19,7 +19,6 @@ app.use((req, res, next) => {
     next();
   });
 
-  /*
 // Setting up cookies in http only
 app.use(cookieSession ({
   secret: "s3Cur3",
@@ -30,13 +29,13 @@ app.use(cookieSession ({
   }
 })
 );
-*/
+
 
 // Parsing of request sent by the client
 app.use(bodyParser.json());
 
 // Add extra response header for more security 
-//app.use(helmet());
+app.use(helmet());
 
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);

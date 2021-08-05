@@ -1,6 +1,7 @@
 <template>
     <div class="feed">
         <h1>Dernières Publications</h1>
+        <span v-if="posts.length === 0">Personne n'a encore publié !</span>
         <div class="post" v-for= "(post, idx) in postLimited" :key="idx">
             <div class="post-content" @click.prevent="singlePostUrl(post.id)">
                 <h2>{{ post.title }}</h2>

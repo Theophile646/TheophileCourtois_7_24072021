@@ -1,5 +1,6 @@
 <template>
     <div class="comment-list">
+        <span v-if="commentsList.length === 0">Personne n'a encore commenté cette publication !</span>
         <div class="comment-single" v-for= "(oneComment, idx) in commentsLimited" :key="idx" >
             <p>{{ oneComment.content }}</p>
             <h3>Ecrit par {{oneComment.firstName}} {{oneComment.lastName}} le {{formatedDateComment(oneComment.date)}}</h3>
@@ -13,6 +14,10 @@
 
 <style lang="scss" scoped>
 @import '@/assets/_variables.scss';
+
+span {
+    line-height: 2em;
+}
 
 .comment-list {
     border: 1px solid $secondary-color;
