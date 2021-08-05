@@ -3,7 +3,7 @@
         <div class="comment-single" v-for= "(oneComment, idx) in commentsList" :key="idx" >
             <p>{{ oneComment.content }}</p>
             <h3>Ecrit par {{oneComment.firstName}} {{oneComment.lastName}} le {{formatedDateComment(oneComment.date)}}</h3>
-            <button class="button button--delete" v-if="isAuthor(oneComment.id)">Supprimer</button>
+            <button class="button button--delete" v-if="isAuthor(oneComment.id) || $store.state.admin === 1">Supprimer</button>
         </div>
         
         <button class="button button--seemore" @click="limit = null" >Voir Plus</button>
@@ -52,7 +52,13 @@ export default {
 
     methods: {
         async getAllComments(postId) {
-            await axios.get(`http://localhost:3000/api/posts/${postId}/comments`)
+            await axios.get(`http://localhost:3000/api/posts/${postId}/comments`,
+            {
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.token}`,
+                }
+            })
             .then(response => {
                 return this.commentsList = response.data;
             })

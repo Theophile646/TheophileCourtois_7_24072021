@@ -3,7 +3,7 @@
         <h2>{{post.title}}</h2>
         <h3>Publié le {{formatDate(post.publicationDate)}} par {{ post.author }}</h3>
         <p>{{ post.content }}</p>
-        <button class="button button--delete" v-if="isAuthor(post.userId)" @click.prevent="deletePost(post.id)">Supprimer</button>
+        <button class="button button--delete" v-if="isAuthor(post.userId)|| $store.state.admin === 1" @click.prevent="deletePost(post.id)">Supprimer</button>
         <span>{{ message }}</span>
     </div>
 </template>
@@ -29,7 +29,13 @@ export default {
     },
     methods: {
         async getPostById (postId) {
-            await axios.get(`http://localhost:3000/api/posts/${postId}`)
+            await axios.get(`http://localhost:3000/api/posts/${postId}`,
+            {
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.token}`,
+                }
+            })
             .then(response => {
                 return this.post = response.data;
             })
@@ -50,7 +56,8 @@ export default {
             }
         },
         deletePost(postId) {
-            axios.delete(`http://localhost:3000/api/posts/${postId}`, {
+            axios.delete(`http://localhost:3000/api/posts/${postId}`, 
+            {
                 headers: {
                     'content-type': 'application/json',
                     Authorization: `Bearer ${this.$store.state.token}`

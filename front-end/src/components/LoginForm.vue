@@ -63,7 +63,8 @@ export default {
     ...mapMutations([
       'setUserId',
       'setToken',
-      'setFullName'
+      'setFullName',
+      'setAdmin'
     ]),
     login() {
       const email = document.getElementById('login-email').value;
@@ -82,6 +83,7 @@ export default {
       .then(res => {
         if(res.status === 200) {
           this.setUserId(res.data.userId);
+          this.setAdmin(res.data.admin)
           this.setToken(res.data.token);
           const fullName = res.data.firstName + ' ' + res.data.lastName;
           this.setFullName(fullName)

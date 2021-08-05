@@ -43,7 +43,13 @@ export default {
         async getPostCreated() {
             const userId = this.$store.state.userId;
 
-            await axios.get(`http://localhost:3000/api/posts/user/${userId}`)
+            await axios.get(`http://localhost:3000/api/posts/user/${userId}`,
+            {
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.token}`,
+                }
+            })
             .then(response => {
                 return this.postsCreated = response.data;
             })

@@ -7,12 +7,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userId: null,
+    admin: null,
     token: null,
-    fullName: null, 
+    fullName: null
   },
   mutations: {
     setUserId(state, userId) {
       state.userId = userId;
+    },
+    setAdmin(state, admin) {
+      state.admin = admin;
     },
     setToken(state, token) {
       state.token = token;

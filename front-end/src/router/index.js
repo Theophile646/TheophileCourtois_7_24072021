@@ -5,6 +5,7 @@ import Feed from "../views/Feed.vue";
 import Signup from "../views/Signup.vue";
 import PostSingle from "../views/PostSingle";
 import Profile from "../views/Profile";
+import Users from "../views/Users";
 
 
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/profile',
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: '/users',
+    name: "Users",
+    component: Users,
   }
 ]
 

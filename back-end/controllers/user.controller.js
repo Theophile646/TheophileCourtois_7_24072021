@@ -20,6 +20,7 @@ exports.signUp = (req, res, next) => {
             email: req.body.email,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            admin: req.body.admin,
             password: hash
           });
           User.create(user, (err, data) => {
@@ -53,6 +54,7 @@ exports.login = (req, res, next) => {
               userId: results[0].id,
               firstName : results[0].firstName,
               lastName : results[0].lastName,
+              admin: results[0].admin,
               token: jwt.sign(
                   { userId: results[0]._id},
                   'UOFJUOdJOUtq8M0askG8JdnmRf4fSIFBuVMeVqdqxTnEV7A5nPC0gfYbLatKN7V',
@@ -72,6 +74,18 @@ exports.login = (req, res, next) => {
     }
   })
 
+};
+
+// Retrieve all users from the database.
+exports.findAllUsers = (req, res) => {
+  User.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving posts."
+      });
+    else res.send(data);
+  });
 };
 
 // Find a single User with a userId

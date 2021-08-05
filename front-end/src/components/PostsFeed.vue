@@ -7,7 +7,7 @@
                 <h3>Publié le {{formatDatePost(post.publicationDate)}} par {{ post.author }}.</h3>
                 <p>{{ post.content }}</p>
             </div>
-            <button class="button button--delete" v-if="isAuthor(post.userId)" @click.prevent="deletePost(post.id)">Supprimer la publication</button>
+            <button class="button button--delete" v-if="isAuthor(post.userId) || $store.state.admin === 1" @click.prevent="deletePost(post.id)">Supprimer la publication</button>
             <div class="message">{{message}}</div>
         </div>
         <button @click="limit = null" class="button button--seemore ">Voir plus</button>
@@ -64,7 +64,13 @@ export default {
 
     methods: {
         async getAllPosts() {
-            await axios.get('http://localhost:3000/api/posts')
+            await axios.get('http://localhost:3000/api/posts',
+            {
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.token}`,
+                }
+            })
             .then(response => {
                 return this.posts = response.data;
             })

@@ -9,6 +9,7 @@ const Post = function (post) {
     this.author = post.author;
 }
 
+//Create Post
 Post.create = (newPost, result) => {
     sql.query("INSERT INTO posts SET ?", newPost, (err, res) => {
       if (err) {
@@ -22,6 +23,7 @@ Post.create = (newPost, result) => {
     });
   };
   
+  //find post with postId
   Post.findById = (postId, result) => {
     sql.query(`SELECT * FROM posts WHERE id = ${postId}`, (err, res) => {
       if (err) {
@@ -41,6 +43,7 @@ Post.create = (newPost, result) => {
     });
   };
   
+  //Get all Posts
   Post.getAll = result => {
     sql.query("SELECT * FROM posts", (err, res) => {
       if (err) {
@@ -54,7 +57,7 @@ Post.create = (newPost, result) => {
     });
   };
   
-  //Get all Posts from a User
+  //Get all Posts from a Userid
   Post.getAllByUserId = (userId, result) => {
     sql.query(`SELECT users.firstName, users.lastName, posts.publicationDate, posts.title, posts.content, posts.id FROM posts INNER JOIN users ON users.id = posts.userId
     WHERE users.id = ${userId};`, (err, res) => {
@@ -70,7 +73,7 @@ Post.create = (newPost, result) => {
   };
 
 
-
+  //Update post with postId
   Post.updateById = (id, post, result) => {
     sql.query(
       "UPDATE posts SET email = ?, name = ?, lastName = ? WHERE id = ?",
@@ -94,6 +97,7 @@ Post.create = (newPost, result) => {
     );
   };
   
+  //Delete post with id
   Post.remove = (postId, result) => {
     sql.query(`DELETE posts, comments
     FROM posts 
