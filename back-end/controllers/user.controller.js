@@ -20,17 +20,29 @@ exports.signUp = (req, res, next) => {
             email: req.body.email,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            admin: req.body.admin,
             password: hash
           });
           User.create(user, (err, data) => {
             if (err) {
               console.log(err);
               return res.status(400).json("erreur");
+            } else {
+              db.query(`SELECT * FROM users WHERE email='${req.body.email}'`,
+              (err, results, rows) => {
+                  return res.status(201).json({
+                    message: 'Votre compte a bien été crée !',
+                    userId: results[0].id,
+                    firstName : results[0].firstName,
+                    lastName : results[0].lastName,
+                    admin: results[0].admin,
+                    token: jwt.sign(
+                        { userId: results[0].id},
+                        'UOFJUOdJOUtq8M0askG8JdnmRf4fSIFBuVMeVqdqxTnEV7A5nPC0gfYbLatKN7V',
+                        { expiresIn: '24h'}
+                    )
+                  })
+              })
             }
-            return res.status(201).json({
-                message: 'Votre compte a bien été crée !'
-            });
           }) 
         })
       }
@@ -56,7 +68,7 @@ exports.login = (req, res, next) => {
               lastName : results[0].lastName,
               admin: results[0].admin,
               token: jwt.sign(
-                  { userId: results[0]._id},
+                  { userId: results[0].id},
                   'UOFJUOdJOUtq8M0askG8JdnmRf4fSIFBuVMeVqdqxTnEV7A5nPC0gfYbLatKN7V',
                   { expiresIn: '24h'}
               )

@@ -28,6 +28,7 @@ export default new Vuex.Store({
       state.userId = null;
       state.token = null;
       state.fullName = null;
+      state.admin = null;
     }
     
   },

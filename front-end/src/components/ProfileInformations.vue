@@ -22,6 +22,8 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from "vuex";
+
 
 export default {
     name: "ProfileInformations",
@@ -39,7 +41,12 @@ export default {
     },
 
     methods: {
-
+        ...mapMutations([
+            'setUserId',
+            'setToken',
+            'setFullName',
+            'setAdmin'
+        ]),
         async getPostCreated() {
             const userId = this.$store.state.userId;
 
@@ -94,6 +101,7 @@ export default {
             })
             .then(res => {
                 if(res.status === 200) {
+                    this.$store.commit('resetState');
                     this.$router.push('/');
                     this.message ="Votre compte a bien été supprimé !";
                     console.log('Compte supprimé');

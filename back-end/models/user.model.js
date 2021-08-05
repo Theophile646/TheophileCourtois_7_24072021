@@ -6,7 +6,6 @@ const User = function(user) {
   this.firstName = user.firstName;
   this.lastName = user.lastName;
   this.password = user.password;
-  this.admin = user.admin;
 };
 
 

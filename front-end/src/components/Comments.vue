@@ -1,12 +1,12 @@
 <template>
     <div class="comment-list">
-        <div class="comment-single" v-for= "(oneComment, idx) in commentsList" :key="idx" >
+        <div class="comment-single" v-for= "(oneComment, idx) in commentsLimited" :key="idx" >
             <p>{{ oneComment.content }}</p>
             <h3>Ecrit par {{oneComment.firstName}} {{oneComment.lastName}} le {{formatedDateComment(oneComment.date)}}</h3>
-            <button class="button button--delete" v-if="isAuthor(oneComment.id) || $store.state.admin === 1">Supprimer</button>
+            <button class="button button--delete" v-if="isAuthor(oneComment.id) || $store.state.admin === 1" @click.prevent="deletePost(oneComment.id)">Supprimer</button>
         </div>
         
-        <button class="button button--seemore" @click="limit = null" >Voir Plus</button>
+        <button class="button button--seemore" v-if="commentsList.length > 5" @click="limit = null" >Voir Plus</button>
         
     </div>
 </template>
@@ -45,8 +45,8 @@ export default {
     },
     
     computed: {
-        postLimited() {
-            return this.limit ? this.posts.slice(0,this.limit) : this.posts
+        commentsLimited() {
+            return this.limit ? this.commentsList.slice(0,this.limit) : this.commentsList
         }
     },
 

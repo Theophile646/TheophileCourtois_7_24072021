@@ -28,9 +28,12 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from "vuex";
+
 
 export default {
   name: 'SignupForm',
+  
   
   data() {
     return {
@@ -39,6 +42,13 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'setUserId',
+      'setToken',
+      'setFullName',
+      'setAdmin'
+
+    ]),
     signup () {
       const email = document.getElementById('signup-email').value;
       const firstName = document.getElementById('signup-firstname').value;
@@ -59,7 +69,13 @@ export default {
       })
       .then(res => {
         if(res.status === 201) {
-          location.href = '/';
+          console.log(res.data);
+          this.setUserId(res.data.userId);
+          this.setAdmin(res.data.admin)
+          this.setToken(res.data.token);
+          const fullName = res.data.firstName + ' ' + res.data.lastName;
+          this.setFullName(fullName)
+          this.$router.push('/feed');
         }
       })
       .catch((error) => {
@@ -68,6 +84,13 @@ export default {
         } 
       });
 
+    },
+
+  }, 
+  mounted() {
+    const tokenUser = this.$store.state.token
+    if (tokenUser != null) {
+      this.$router.push('/feed')
     }
   }
   

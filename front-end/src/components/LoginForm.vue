@@ -98,6 +98,12 @@ export default {
         } 
       }) 
     }
+  },
+  mounted() {
+    const tokenUser = this.$store.state.token
+    if (tokenUser != null) {
+      this.$router.push('/feed')
+    }
   }
   
 }

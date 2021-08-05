@@ -10,7 +10,7 @@
             <button class="button button--delete" v-if="isAuthor(post.userId) || $store.state.admin === 1" @click.prevent="deletePost(post.id)">Supprimer la publication</button>
             <div class="message">{{message}}</div>
         </div>
-        <button @click="limit = null" class="button button--seemore ">Voir plus</button>
+        <button v-if="posts.length > 5" @click="limit = null" class="button button--seemore ">Voir plus</button>
     </div>
 </template>
 
