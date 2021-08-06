@@ -107,6 +107,7 @@ export default {
                 if(res.status === 200) {
                     this.message ="Votre publication a bien été supprimé !";
                     console.log('Post supprimé');
+                    this.$emit('launch-rerender-ondelete');
                 }else{
                     this.message = "error";
                 }

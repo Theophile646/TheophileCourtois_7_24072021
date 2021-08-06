@@ -4,7 +4,7 @@
         <div class="comment-single" v-for= "(oneComment, idx) in commentsLimited" :key="idx" >
             <p>{{ oneComment.content }}</p>
             <h3>Ecrit par {{oneComment.firstName}} {{oneComment.lastName}} le {{formatedDateComment(oneComment.date)}}</h3>
-            <button class="button button--delete" v-if="isAuthor(oneComment.id) || $store.state.admin === 1" @click.prevent="deletePost(oneComment.id)">Supprimer</button>
+            <button class="button button--delete" v-if="isAuthor(oneComment.userId) || $store.state.admin === 1" @click.prevent="deleteComment(oneComment.commentId)">Supprimer</button>
         </div>
         
         <button class="button button--seemore" v-if="commentsList.length > 5" @click="limit = null" >Voir Plus</button>
@@ -65,6 +65,7 @@ export default {
                 }
             })
             .then(response => {
+                console.log(response.data);
                 return this.commentsList = response.data;
             })
             .catch(error => {
@@ -82,6 +83,26 @@ export default {
             } else {
                 return false;
             }
+        },
+        deleteComment(commentId) {
+            //console.log(postId);
+            const postId = window.location.href.slice(1).split("/")[4];
+            console.log(commentId);
+            axios.delete(`http://localhost:3000/api/posts/${postId}/comments/${commentId}`, {
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${this.$store.state.token}`
+                }
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    this.message ="Votre publication a bien été supprimé !";
+                    console.log('Post supprimé');
+                    this.$emit('launch-rerender-ondelete-comment');
+                }else{
+                    this.message = "error";
+                }
+            })
         }
     },
 

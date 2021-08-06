@@ -1,8 +1,8 @@
 <template>
     <div class="home">
         <NavBar/>
-        <FormPost/>
-        <PostsFeed />
+        <FormPost @launch-rerender="forceRerender()" :key="`${componentKey}-1`"/>
+        <PostsFeed @launch-rerender-ondelete="forceRerender()" :key="`${componentKey}-2`"/>
         <Footer/>
     </div>
 </template>
@@ -22,6 +22,17 @@ export default {
     FormPost,
     PostsFeed,
     Footer
+  }, 
+  data() {
+    return {
+      componentKey: 0
+    };
+  }, 
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
+    }
+    
   }
 }
 </script>

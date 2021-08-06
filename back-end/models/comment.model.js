@@ -23,7 +23,7 @@ Comment.create = (newComment, result) => {
 
   //Get all comment from a post
   Comment.getAllByPostId = (postId, result) => {
-    sql.query(`SELECT users.id, users.firstName, users.LastName, comments.date, comments.content 
+    sql.query(`SELECT comments.id AS commentId, users.id AS userId, users.firstName, users.LastName, comments.date, comments.content 
     FROM comments 
     INNER JOIN posts ON posts.id = comments.postId 
     INNER JOIN users on users.id = comments.userId

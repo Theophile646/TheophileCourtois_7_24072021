@@ -33,6 +33,6 @@ router.post("/:postId/comment", auth, commentCtrl.create);
 router.get("/:postId/comments", auth, commentCtrl.findAllComments);
 
 // Delete a Comment with CommentId
-router.delete("/:postId/:commentId", auth, commentCtrl.delete);
+router.delete("/:postId/comments/:commentId", auth, commentCtrl.delete);
 
 module.exports = router;

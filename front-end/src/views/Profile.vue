@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <NavBar/>
-        <ProfileInformations/>
+        <ProfileInformations @launch-rerender="forceRerender()" :key="`${componentKey}-1`"/>
         <Footer/>
     </div>
 </template>
@@ -17,6 +17,16 @@ export default {
         NavBar,
         ProfileInformations,
         Footer
+    },
+    data() {
+        return {
+            componentKey: 0
+        };
+    }, 
+    methods: {
+        forceRerender() {
+            this.componentKey += 1;
+        }
     }
 }
 </script>

@@ -10,7 +10,6 @@ import store from './store'
 
 library.add(faHome, faUser, faTimes)
 
-
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false;

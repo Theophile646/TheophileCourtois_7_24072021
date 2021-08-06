@@ -79,6 +79,7 @@ export default {
                 if(res.status === 201) {
                     this.message ="Votre commentaire a bien été publié !";
                     console.log('Commentaire publié');
+                    this.$emit('launch-rerender');
                 }
             })
             .catch((error) => {

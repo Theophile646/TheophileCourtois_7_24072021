@@ -11,8 +11,6 @@
                 <button class="button button--delete" @click.prevent="deletePost(post.id)">Supprimer l'article</button>
             </div>
 
-            <button @click="limit = null" class="button button--seemore">Voir Plus</button>
-
         </div>
 
         <button class="button button--delete" @click="deleteAccount()">Supprimer le compte</button>
@@ -29,16 +27,10 @@ export default {
     name: "ProfileInformations",
     data() {
         return {
-            postsCreated: [],
-            limit: 5
+            postsCreated: []
         }
     },
 
-    computed: {
-        postLimited() {
-            return this.limit ? this.posts.slice(0,this.limit) : this.posts
-        }
-    },
 
     methods: {
         ...mapMutations([
@@ -86,6 +78,7 @@ export default {
                 if(res.status === 200) {
                     this.message ="Votre publication a bien été supprimé !";
                     console.log('Post supprimé');
+                    this.$emit('launch-rerender');
                 }else{
                     this.message = "error";
                 }

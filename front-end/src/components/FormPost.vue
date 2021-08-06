@@ -51,14 +51,17 @@ import axios from 'axios';
 
 export default {
     name: 'FormPost',
-
     data() {
         return {
             message:""
         }
     },
-
     methods: { 
+        sendMessage() {
+            this.$emit('message-sent', {
+                message:"Mon message"
+            })
+        },
         createPost () {
             const title = document.getElementById('create-post__title').value;
             const content = document.getElementById('create-post__content').value;
@@ -84,6 +87,7 @@ export default {
                 if(res.status === 201) {
                     this.message ="Votre message a bien été publié !";
                     console.log('Post publié');
+                    this.$emit('launch-rerender');
                 }
             })
             .catch((error) => {
