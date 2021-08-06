@@ -43,7 +43,7 @@ exports.findAll = (req, res) => {
 
 // Retrieve all Posts from a User.
 exports.findAllByUserId = (req, res) => {
-  Post.getAllByUserId(req.params.userId,(err, data) => {
+  Post.getAllByUserId(req.params.userId, (err, data) => {
     if (err)
       res.status(500).send({
         message:

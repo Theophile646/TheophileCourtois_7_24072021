@@ -56,11 +56,7 @@ User.findById = (userId, result) => {
 };
 
 User.remove = (userId, result) => {
-  sql.query(`DELETE users, posts, comments
-  FROM users 
-  LEFT JOIN posts ON users.id = posts.userId
-  RIGHT JOIN comments ON users.id = comments.userId
-  WHERE users.id = ${userId};`, userId, (err, res) => {
+  sql.query(`DELETE FROM users WHERE id = ?`, userId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

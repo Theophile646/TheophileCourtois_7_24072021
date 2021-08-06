@@ -59,8 +59,7 @@ Post.create = (newPost, result) => {
   
   //Get all Posts from a Userid
   Post.getAllByUserId = (userId, result) => {
-    sql.query(`SELECT users.firstName, users.lastName, posts.publicationDate, posts.title, posts.content, posts.id FROM posts INNER JOIN users ON users.id = posts.userId
-    WHERE users.id = ${userId};`, (err, res) => {
+    sql.query(`SELECT * FROM posts WHERE id = ${userId}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

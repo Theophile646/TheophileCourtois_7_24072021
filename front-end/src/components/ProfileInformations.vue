@@ -2,6 +2,7 @@
     <div>
         <div class="post-created">
             <h1>{{ this.$store.state.fullName}} voici vos publications :</h1>
+            <p v-if="postsCreated.length === 0">Vous n'avez encore rien publié !</p>
             <div class="post" v-for="(post, idx) in postsCreated" :key="idx">
                 <div class="post-content" @click.prevent="singlePostUrl(post.id)">
                     <h2>{{ post.title }}</h2>
