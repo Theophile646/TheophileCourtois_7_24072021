@@ -45,7 +45,7 @@ Post.create = (newPost, result) => {
   
   //Get all Posts
   Post.getAll = result => {
-    sql.query("SELECT * FROM posts ORDER BY posts.publicationDate DESC", (err, res) => {
+    sql.query("SELECT * FROM posts ORDER BY posts.id DESC", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -59,7 +59,7 @@ Post.create = (newPost, result) => {
   
   //Get all Posts from a Userid
   Post.getAllByUserId = (userId, result) => {
-    sql.query(`SELECT * FROM posts WHERE id = ${userId}`, (err, res) => {
+    sql.query(`SELECT * FROM posts WHERE id = ${userId} ORDER BY posts.id DESC`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

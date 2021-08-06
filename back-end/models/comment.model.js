@@ -28,7 +28,7 @@ Comment.create = (newComment, result) => {
     INNER JOIN posts ON posts.id = comments.postId 
     INNER JOIN users on users.id = comments.userId
     WHERE comments.postId = ${postId}
-    ORDER BY comments.date DESC;`, (err, res) => {
+    ORDER BY comments.id DESC;`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
