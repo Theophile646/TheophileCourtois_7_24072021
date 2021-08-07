@@ -1,4 +1,4 @@
-const sql =require("./db");
+const sql = require("./db");
 
 // constructor
 const Post = function (post) {
@@ -59,7 +59,7 @@ Post.create = (newPost, result) => {
   
   //Get all Posts from a Userid
   Post.getAllByUserId = (userId, result) => {
-    sql.query(`SELECT * FROM posts WHERE id = ${userId} ORDER BY posts.id DESC`, (err, res) => {
+    sql.query(`SELECT * FROM posts WHERE userId = ? ORDER BY posts.id DESC`, userId, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -71,12 +71,11 @@ Post.create = (newPost, result) => {
     });
   };
 
-
+/*
   //Update post with postId
   Post.updateById = (id, post, result) => {
     sql.query(
-      "UPDATE posts SET email = ?, name = ?, lastName = ? WHERE id = ?",
-      [post.title, post.content, post.publicationDate, post.author, id],
+      `UPDATE posts SET title = '${req.body.title}', content = '${req.body.content}' WHERE posts.id = ${req.params.postId}`,
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -95,12 +94,11 @@ Post.create = (newPost, result) => {
       }
     );
   };
+  */
   
   //Delete post with id
   Post.remove = (postId, result) => {
-    sql.query(`DELETE posts, comments
-    FROM posts 
-    LEFT JOIN comments ON posts.id = comments.postId
+    sql.query(`DELETE FROM posts
     WHERE posts.id = ${postId};`, (err, res) => {
       if (err) {
         console.log(postId);

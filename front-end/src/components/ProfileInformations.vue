@@ -42,6 +42,7 @@ export default {
         ]),
         async getPostCreated() {
             const userId = this.$store.state.userId;
+            console.log(userId);
 
             await axios.get(`http://localhost:3000/api/posts/user/${userId}`,
             {

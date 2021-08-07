@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavBar/>
-        <PostSingleComponent />
+        <PostSingleComponent @launch-rerender-onmodify-post="forceRerender()" :key="`${componentKey}-3`"/>
         <Comments  @launch-rerender-ondelete-comment="forceRerender()" :key="`${componentKey}-2`"/>
         <CommentForm @launch-rerender="forceRerender()" :key="`${componentKey}-1`"/>
         <Footer/>

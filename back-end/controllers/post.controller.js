@@ -1,4 +1,6 @@
 const Post = require("../models/post.model");
+const sql = require("../models/db");
+
 
 // Create and Save a new Post
 exports.create = (req, res) => {
@@ -70,6 +72,7 @@ exports.findOne = (req, res) => {
     });
   };
 
+/*
 // Update a Post identified by the postId in the request
 exports.update = (req, res) => {
     // Validate Request
@@ -97,6 +100,20 @@ exports.update = (req, res) => {
       }
     );
   };
+*/
+
+// Modify OnePost
+exports.modifyOnePost = (req, res, next) => {
+  sql.query(`UPDATE posts SET title = '${req.body.title}', content = '${req.body.content}' WHERE posts.id = ${req.body.postId}`, (error, result, field) => {
+      if (error) {
+          return res.status(400).json({
+              error
+          });
+      }
+      return res.status(200).json(result);
+  });
+};
+
 // Delete a Post with the specified postId in the request
 exports.deletePost = (req, res) => {
     Post.remove(req.params.postId, (err, data) => {

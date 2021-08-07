@@ -20,7 +20,7 @@ router.get("/user/:userId", auth, postCtrl.findAllByUserId);
 router.get("/:postId", auth, postCtrl.findOne);
 
 // Update a Post with postId
-router.put("/:postId", auth, postCtrl.update);
+router.put("/:postId", auth, postCtrl.modifyOnePost);
 
 // Delete a Post with postId
 router.delete("/:postId", auth,postCtrl.deletePost);

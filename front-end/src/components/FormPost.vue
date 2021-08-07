@@ -19,7 +19,7 @@
 <style lang="scss">
 @import '@/assets/_variables.scss';
 
-.form-post__title, .form-post__content {
+.form-post__title, .form-post__content, .modify-title, .modify-content {
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -65,7 +65,6 @@ export default {
                 }
             })
             .then(response => {
-                console.log(response.data);
                 return this.commentsList = response.data;
             })
             .catch(error => {
