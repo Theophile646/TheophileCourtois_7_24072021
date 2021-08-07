@@ -25,7 +25,7 @@ Post.create = (newPost, result) => {
   
   //find post with postId
   Post.findById = (postId, result) => {
-    sql.query(`SELECT * FROM posts WHERE id = ${postId}`, (err, res) => {
+    sql.query("SELECT * FROM posts WHERE id = ?", postId, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -71,35 +71,11 @@ Post.create = (newPost, result) => {
     });
   };
 
-/*
-  //Update post with postId
-  Post.updateById = (id, post, result) => {
-    sql.query(
-      `UPDATE posts SET title = '${req.body.title}', content = '${req.body.content}' WHERE posts.id = ${req.params.postId}`,
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-  
-        if (res.affectedRows == 0) {
-          // not found Post with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-  
-        console.log("updated post: ", { id: id, ...post });
-        result(null, { id: id, ...post });
-      }
-    );
-  };
-  */
-  
+
   //Delete post with id
   Post.remove = (postId, result) => {
     sql.query(`DELETE FROM posts
-    WHERE posts.id = ${postId};`, (err, res) => {
+    WHERE posts.id = ?;`, postId, (err, res) => {
       if (err) {
         console.log(postId);
         console.log("error: ", err);

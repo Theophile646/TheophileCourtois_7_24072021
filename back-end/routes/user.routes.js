@@ -8,19 +8,16 @@ const auth = require('../middleware/auth'); // check if user has the token befor
 
 
 // Create a new User with signup
-router.post("/signup", userCtrl.signUp);
+router.post("/signup", passwordCheck, userCtrl.signUp);
 
 // Login
-router.post('/login', userCtrl.login);
+router.post('/login', limiter, userCtrl.login);
 
 // Retrieve all Users
 router.get("/users", auth, userCtrl.findAllUsers);
 
 // Retrieve a single User with userId
 router.get("/:userId", auth, userCtrl.findOne);
-
-// Update a User with userId
-router.put("/:userId", userCtrl.update);
 
 // Delete a User with userId
 router.delete("/users/:userId", auth, userCtrl.delete);

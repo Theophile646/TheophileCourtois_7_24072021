@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 // Signup
 exports.signUp = (req, res, next) => {
   //verify if email exists
-  db.query(`SELECT * FROM users WHERE email='${req.body.email}'`,
-  (err, results, rows) => {
+  db.query(`SELECT * FROM users WHERE email= ?`,
+  req.body.email, (err, results, rows) => {
       //Si email deja utilisé
       if (results.length > 0) {
           res.status(401).json({
@@ -27,8 +27,8 @@ exports.signUp = (req, res, next) => {
               console.log(err);
               return res.status(400).json("erreur");
             } else {
-              db.query(`SELECT * FROM users WHERE email='${req.body.email}'`,
-              (err, results, rows) => {
+              db.query(`SELECT * FROM users WHERE email=?`,
+              req.body.email, (err, results, rows) => {
                   return res.status(201).json({
                     message: 'Votre compte a bien été crée !',
                     userId: results[0].id,
@@ -51,8 +51,8 @@ exports.signUp = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   //verify if email exists
-  db.query(`SELECT * FROM users WHERE email='${req.body.email}'`,
-  (err, results, rows) => {
+  db.query(`SELECT * FROM users WHERE email= ?`,
+  req.body.email, (err, results, rows) => {
       //Si utilisateur trouvé : 
       if (results.length > 0) {
         console.log(results[0]);
