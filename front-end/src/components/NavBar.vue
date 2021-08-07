@@ -3,7 +3,7 @@
     <span v-if="isLoggedIn">
         <router-link class="link hover" to="/feed">Feed</router-link> |
         <router-link class="link hover" to="/profile">Mon Compte</router-link> |
-        <router-link class="link hover" to="/users" v-if="$store.state.admin === 1">Utilisateurs</router-link> 
+        <router-link class="link hover" to="/users" v-if="$store.state.admin === 1">Utilisateurs |</router-link> 
         <a class="link hover" @click.prevent.stop="logout">Se déconnecter</a>
 
     </span>
